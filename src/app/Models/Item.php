@@ -47,7 +47,6 @@ class Item extends Model
         return $this->belongsToMany(Category::class, 'item_categories');
     }
 
-    /** 便利メソッド：この商品をユーザーがいいねしてる？ */
     public function isLikedBy($user)
     {
         if (!$user) return false;
