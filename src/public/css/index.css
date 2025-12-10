@@ -1,0 +1,52 @@
+/* タブ */
+.tab-menu {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.tab-menu a {
+    margin: 0 20px;
+    text-decoration: none;
+    font-size: 18px;
+    color: #555;
+}
+
+.tab-menu .active {
+    color: #d33;
+    border-bottom: 2px solid #d33;
+}
+
+/* 商品一覧 */
+.products-container {
+    max-width: 1200px;
+    margin: 40px auto 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 30px;
+    justify-content: flex-start;
+}
+
+.product-card {
+    width: 200px;
+    text-decoration: none;
+    color: #000;
+}
+
+.product-img {
+    width: 200px;
+    height: 200px;
+    background: #ddd;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.no-img {
+    color: #444;
+    font-size: 16px;
+}
+
+.product-name {
+    margin-top: 10px;
+    font-size: 14px;
+}

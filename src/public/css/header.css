@@ -1,0 +1,44 @@
+.header {
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    background: #fff;
+}
+
+.header-inner {
+    max-width: 1200px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #000;
+}
+
+.search-form {
+    flex: 1;
+    margin: 0 20px;
+}
+
+.search-form input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.header-right a {
+    margin-left: 20px;
+    text-decoration: none;
+    color: #000;
+}
+
+.sell-btn {
+    padding: 5px 12px;
+    border: 1px solid #000;
+    border-radius: 4px;
+}
