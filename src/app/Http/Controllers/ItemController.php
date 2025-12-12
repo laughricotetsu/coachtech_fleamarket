@@ -3,20 +3,41 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Product;   // 商品モデル
+use App\Models\Item;   // 商品モデル
 use Illuminate\Support\Facades\Auth;
 
 class ItemController extends Controller
 {
+    public function index(Request $request)
+{
+    $items = Item::paginate(6);
+
+    // キーワード検索
+    if ($request->filled('keyword')) {
+        $query->where('name', 'like', '%' . $request->keyword . '%');
+    }
+
+    // 並び替え対応
+    if ($request->sort === 'price_asc') {
+        $query->orderBy('price', 'asc');
+    } elseif ($request->sort === 'price_desc') {
+        $query->orderBy('price', 'desc');
+    }
+
+    $items = $query->paginate(6);
+
+    return view('items.index', compact('items'));
+}
+
     /**
      * 商品詳細ページ
      * URL: /item/{item_id}
      */
     public function show($item_id)
     {
-        $product = Product::findOrFail($item_id);
+        $items = Product::findOrFail($item_id);
 
-        return view('items.show', compact('product'));
+        return view('items.show', compact('item'));
     }
 
     /**
