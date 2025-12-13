@@ -10,14 +10,14 @@ class ItemController extends Controller
 {
     public function index(Request $request)
 {
-    $items = Item::paginate(6);
+    $query = Item::query();
 
     // キーワード検索
     if ($request->filled('keyword')) {
         $query->where('name', 'like', '%' . $request->keyword . '%');
     }
 
-    // 並び替え対応
+    // 並び替え
     if ($request->sort === 'price_asc') {
         $query->orderBy('price', 'asc');
     } elseif ($request->sort === 'price_desc') {
@@ -29,46 +29,48 @@ class ItemController extends Controller
     return view('items.index', compact('items'));
 }
 
+
     /**
      * 商品詳細ページ
      * URL: /item/{item_id}
      */
     public function show($item_id)
-    {
-        $items = Product::findOrFail($item_id);
+{
+    $item = Item::findOrFail($item_id);
 
-        return view('items.show', compact('item'));
-    }
+    return view('items.show', compact('item'));
+}
+
 
     /**
      * 商品購入ページ
      * URL: /purchase/{item_id}
      */
     public function purchase($item_id)
-    {
-        $product = Product::findOrFail($item_id);
+{
+    $item = Item::findOrFail($item_id);
 
-        // 未ログインならログインページへ
-        if (!Auth::check()) {
-            return redirect()->route('login')->with('error', '購入するにはログインが必要です');
-        }
-
-        return view('items.purchase', compact('product'));
+    if (!Auth::check()) {
+        return redirect()->route('login')
+            ->with('error', '購入するにはログインが必要です');
     }
+
+    return view('items.purchase', compact('item'));
+}
+
 
     /**
      * 送付先住所変更ページ
      * URL: /purchase/address/{item_id}
      */
     public function changeAddress($item_id)
-    {
-        $product = Product::findOrFail($item_id);
+{
+    $item = Item::findOrFail($item_id);
+    $user = Auth::user();
 
-        // 住所情報はユーザーのプロフィールから取得する想定
-        $user = Auth::user();
+    return view('items.address', compact('item', 'user'));
+}
 
-        return view('items.address', compact('product', 'user'));
-    }
 
     /**
      * 送付先住所の保存処理
