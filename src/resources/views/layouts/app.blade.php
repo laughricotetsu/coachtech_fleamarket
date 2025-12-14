@@ -31,7 +31,7 @@
                     <a href="{{ route('login') }}">ログイン</a>
                     <a href="{{ route('register') }}">会員登録</a>
                 @endguest
-                <a href="{{ route('sell.create') }}" class="sell-btn">出品</a>
+                
             </div>
         </div>
     </header>

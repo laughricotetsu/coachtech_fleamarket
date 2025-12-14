@@ -27,7 +27,7 @@
             <span class="icon">💬</span>
         </div>
 
-        <a href="{{ route('purchase.index', $item->id) }}" class="buy-btn">購入手続きへ</a>
+        <a href="{{ route('items.purchase', $item->id) }}" class="buy-btn">購入手続きへ</a>
 
         {{-- 商品説明 --}}
         <div class="section">

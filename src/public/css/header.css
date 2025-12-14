@@ -1,7 +1,11 @@
 .header {
     width: 100%;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
     border-bottom: 1px solid #ddd;
-    background: #fff;
+    background: #000;
 }
 
 .header-inner {
@@ -16,7 +20,7 @@
     font-size: 22px;
     font-weight: bold;
     text-decoration: none;
-    color: #000;
+    color: #fff;
 }
 
 .search-form {

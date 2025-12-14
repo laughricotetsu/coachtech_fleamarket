@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Item;   // 商品モデル
 use Illuminate\Support\Facades\Auth;
 
+
 class ItemController extends Controller
 {
     public function index(Request $request)
@@ -56,6 +57,24 @@ class ItemController extends Controller
     }
 
     return view('items.purchase', compact('item'));
+}
+
+    public function store(Request $request)
+{
+    // ② 画像保存
+    if ($request->hasFile('image')) {
+        // storage/app/public/products に保存
+        $path = $request->file('image')->store('products', 'public');
+        // $path = "products/xxx.jpg"
+        $validated['image'] = $path;
+    }
+
+    // ③ DB保存
+    Item::create($validated);
+
+    // ④ 一覧へリダイレクト
+    return redirect()->route('items.index')
+        ->with('success', '商品を登録しました');
 }
 
 

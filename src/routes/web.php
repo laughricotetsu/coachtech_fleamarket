@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PurchaseController;
+use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\ProfileController;
@@ -14,21 +15,15 @@ Route::get('/', [ItemController::class, 'index'])->name('items.index');
 // 商品詳細
 Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('items.show');
 
-// 認証（ログイン / 会員登録）
-Route::get('/login', [\App\Http\Controllers\Auth\LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [\App\Http\Controllers\Auth\LoginController::class, 'login']);
-Route::post('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
-
-Route::get('/register', [\App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
-Route::post('/register', [\App\Http\Controllers\Auth\RegisterController::class, 'register']);
 
 // 商品購入
-Route::get('/purchase/{item_id}', [ItemController::class, 'index'])->name('purchase.index');
-Route::post('/purchase/{item_id}', [ItemController::class, 'store'])->name('purchase.store');
+Route::get('/purchase/{item_id}', [ItemController::class, 'purchase'])->name('items.purchase');
+Route::post('/purchase/{item_id}', [ItemController::class, 'store'])->name('items.purchase.store');
 
 // 出品
-Route::get('/sell', [SellController::class, 'create'])->name('sell.create');
-Route::post('/sell', [SellController::class, 'store'])->name('sell.store');
+Route::get('/sell', [SellController::class, 'create'])->name('items.create');
+Route::post('/sell', [SellController::class, 'store'])->name('items.store');
+Route::put('/items/{item}', [ItemController::class, 'update'])->name('items.update');
 
 // 送付先住所変更ページ
 Route::get('/purchase/address/{item}', [ItemController::class, 'changeAddress'])
