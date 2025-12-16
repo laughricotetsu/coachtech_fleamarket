@@ -7,50 +7,40 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Item extends Model
 {
-    use HasFactory;
-
     protected $fillable = [
         'user_id',
-        'title',
-        'description',
+        'category_id',
+        'name',
         'price',
-        'status',
+        'color',
+        'brand',
+        'description',
+        'image_path',
+        'condition'
     ];
-
-    /** 出品者 */
+    
     public function user()
     {
         return $this->belongsTo(User::class);
     }
 
-    /** 商品画像（複数） */
-    public function images()
+    public function category()
     {
-        return $this->hasMany(ItemImage::class);
+        return $this->belongsTo(Category::class);
     }
 
-    /** マイリスト（いいね） */
     public function likes()
     {
         return $this->hasMany(Like::class);
     }
 
-    /** 購入情報（1商品1回の購入） */
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function purchase()
     {
         return $this->hasOne(Purchase::class);
-    }
-
-    /** 多対多：カテゴリ */
-    public function categories()
-    {
-        return $this->belongsToMany(Category::class, 'item_categories');
-    }
-
-    public function isLikedBy($user)
-    {
-        if (!$user) return false;
-
-        return $this->likes()->where('user_id', $user->id)->exists();
     }
 }

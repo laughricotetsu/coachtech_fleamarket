@@ -15,10 +15,10 @@ class CreatePurchasesTable extends Migration
 {
     Schema::create('purchases', function (Blueprint $table) {
         $table->id();
-        $table->foreignId('user_id')->constrained()->onDelete('cascade'); // 購入者
-        $table->foreignId('item_id')->constrained()->onDelete('cascade'); // 購入商品
-        $table->foreignId('address_id')->constrained()->onDelete('cascade'); // 配送先
-        $table->unsignedInteger('total_price');
+        $table->foreignId('user_id')->constrained()->cascadeOnDelete();
+        $table->foreignId('item_id')->constrained()->cascadeOnDelete();
+        $table->string('shipping_address')->nullable();
+        $table->string('payment_method');
         $table->timestamps();
     });
 }
