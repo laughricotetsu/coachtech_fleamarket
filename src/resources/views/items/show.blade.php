@@ -20,6 +20,10 @@
     <div class="detail-right">
         <h2 class="item-title">{{ $item->name }}</h2>
 
+        @if($item->brand)
+        <p class="item-brand">{{ $item->brand }}</p>
+        @endif
+
         <p class="item-price">¥{{ number_format($item->price) }} <span class="tax">(税込)</span></p>
 
         <div class="icon-area">
@@ -33,6 +37,12 @@
         <div class="section">
             <h3 class="section-title">商品説明</h3>
             <p class="item-description">{{ $item->description }}</p>
+
+            @if($item->color)
+            <p class="item-color">
+                カラー：{{ $item->color }}
+            </p>
+            @endif
         </div>
 
         {{-- 商品の情報 --}}
@@ -41,7 +51,8 @@
 
             <div class="info-row">
                 <span class="info-label">カテゴリー</span>
-                <span class="info-value">例: メンズ</span>
+                <span class="info-value">{{ $item->category->name ?? '未分類' }}</span>
+
             </div>
 
             <div class="info-row">

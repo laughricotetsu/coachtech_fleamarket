@@ -11,7 +11,8 @@ class ItemController extends Controller
 {
     public function index(Request $request)
 {
-    $query = Item::query();
+    $items = Item::with('category')->get();
+    return view('items.index', compact('items'));
 
     // キーワード検索
     if ($request->filled('keyword')) {

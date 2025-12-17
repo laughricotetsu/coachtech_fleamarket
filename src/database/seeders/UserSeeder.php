@@ -14,6 +14,10 @@ class UserSeeder extends Seeder
             'name' => 'テストユーザー',
             'email' => 'test@example.com',
             'password' => Hash::make('password'),
+            'avatar_image' => '',
+            'postal_code' => '012-3456',
+            'address' => '札幌市白石区南郷7丁目南1番10号',
+            'building' => ''
         ]);
     }
 }

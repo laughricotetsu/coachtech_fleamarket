@@ -2,43 +2,60 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ config('app.name', 'Fleamarket') }}</title>
+    <title>COACHTECH フリマ</title>
 
-    <link rel="stylesheet" href="{{ asset('css/reset.css') }}">
     <link rel="stylesheet" href="{{ asset('css/header.css') }}">
-
     @stack('styles')
 </head>
-
 <body>
-    <header class="header">
-        <div class="header-inner">
-            <div class="header-left">
-                <a href="{{ route('items.index') }}" class="logo">COACHTECH</a>
-            </div>
 
-            <form action="{{ route('items.index') }}" method="GET" class="search-form">
-                <input type="text" name="keyword" placeholder="なにをお探しですか？">
-            </form>
+{{-- =========================
+    ヘッダー
+========================= --}}
+<header class="header">
+    <div class="header-inner">
 
-            <div class="header-right">
-                @auth
-                    <a href="{{ route('logout') }}">ログアウト</a>
-                    <a href="{{ route('mypage.index') }}">マイページ</a>
-                @endauth
-                @guest
-                    <a href="{{ route('login') }}">ログイン</a>
-                    <a href="{{ route('register') }}">会員登録</a>
-                @endguest
-                
-            </div>
+        {{-- ロゴ --}}
+        <div class="header-logo">
+            COACHTECH
         </div>
-    </header>
 
-    <main class="main">
-        @yield('content')
-    </main>
+        {{-- 検索 --}}
+        <div class="header-search">
+            <input
+                type="text"
+                placeholder="何をお探しですか？"
+                class="search-input"
+            >
+        </div>
+
+        {{-- メニュー --}}
+        <nav class="header-nav">
+            @auth
+                <a href="{{ route('logout') }}"
+                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    ログアウト
+                </a>
+
+                <a href="{{ route('mypage') }}">マイページ</a>
+                <a href="{{ route('items.create') }}" class="sell-btn">出品</a>
+
+                <form id="logout-form" action="{{ route('logout') }}" method="POST">
+                    @csrf
+                </form>
+            @else
+                <a href="{{ route('login') }}">ログイン</a>
+                <a href="{{ route('register') }}">会員登録</a>
+            @endauth
+        </nav>
+
+    </div>
+</header>
+
+{{-- メイン --}}
+<main>
+    @yield('content')
+</main>
 
 </body>
 </html>

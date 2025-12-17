@@ -35,6 +35,7 @@ Route::post('/purchase/address/{item}', [ItemController::class, 'updateAddress']
 
 // マイページ（プロフィール / 購入履歴 / 出品履歴 / MyList）
 Route::get('/mypage', [MyPageController::class, 'index'])->name('mypage.index');
+Route::get('/mypage', fn () => view('mypage'))->name('mypage');
 // /mypage?page=buy
 // /mypage?page=sell
 // MyPageController で page パラメータを判定
@@ -42,3 +43,4 @@ Route::get('/mypage', [MyPageController::class, 'index'])->name('mypage.index');
 // プロフィール編集
 Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
+
