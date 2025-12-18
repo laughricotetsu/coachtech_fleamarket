@@ -26,6 +26,17 @@
     white-space: nowrap;
 }
 
+.header-logo-link {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.header-logo-link:hover {
+    opacity: 0.8;
+}
+
 /* 検索 */
 .header-search {
     flex: 1;

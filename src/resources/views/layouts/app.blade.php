@@ -17,8 +17,11 @@
 
         {{-- ロゴ --}}
         <div class="header-logo">
-            COACHTECH
-        </div>
+    <a href="{{ route('items.index') }}" class="header-logo-link">
+        <img src="{{ asset('storage/COACHTECHヘッダーロゴ.png') }}" alt="COACHTECH">
+    </a>
+</div>
+
 
         {{-- 検索 --}}
         <div class="header-search">

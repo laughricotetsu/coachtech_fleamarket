@@ -33,7 +33,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'user_id' => $userIds->random(),
-                'category_id' => $categories['家電・スマホ・カメラ'],
+                'category_id' => $categories['家電'],
                 'name' => 'HDD',
                 'price' => 5000,
                 'brand' => '西芝',
@@ -44,7 +44,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'user_id' => $userIds->random(),
-                'category_id' => $categories['食品・飲料・酒'],
+                'category_id' => $categories['食品'],
                 'name' => '玉ねぎ３束',
                 'price' => 300,
                 'brand' => 'なし',
@@ -66,7 +66,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'user_id' => $userIds->random(),
-                'category_id' => $categories['家電・スマホ・カメラ'],
+                'category_id' => $categories['家電'],
                 'name' => 'ノートPC',
                 'price' => 45000,
                 'brand' => null,
@@ -77,7 +77,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'user_id' => $userIds->random(),
-                'category_id' => $categories['オーディオ機器'],
+                'category_id' => $categories['家電'],
                 'name' => 'マイク',
                 'price' => 8000,
                 'brand' => 'なし',
@@ -99,7 +99,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'user_id' => $userIds->random(),
-                'category_id' => $categories['キッチン・日用品'],
+                'category_id' => $categories['キッチン'],
                 'name' => 'タンブラー',
                 'price' => 500,
                 'brand' => 'なし',
@@ -110,7 +110,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'user_id' => $userIds->random(),
-                'category_id' => $categories['キッチン・日用品'],
+                'category_id' => $categories['キッチン'],
                 'name' => 'コーヒーミル',
                 'price' => 4000,
                 'brand' => 'starbacks',
@@ -121,7 +121,7 @@ class ProductSeeder extends Seeder
             ],
             [
                 'user_id' => $userIds->random(),
-                'category_id' => $categories['コスメ・美容'],
+                'category_id' => $categories['コスメ'],
                 'name' => 'メイクセット',
                 'price' => 2500,
                 'brand' => null,
