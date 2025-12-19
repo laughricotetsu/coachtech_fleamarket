@@ -18,7 +18,7 @@
         {{-- ロゴ --}}
         <div class="header-logo">
     <a href="{{ route('items.index') }}" class="header-logo-link">
-        <img src="{{ asset('storage/COACHTECHヘッダーロゴ.png') }}" alt="COACHTECH">
+        <img src="{{ asset('storage/COACHTECHヘッダーロゴ.png'. $item->image_path) }}" alt="COACHTECH">
     </a>
 </div>
 

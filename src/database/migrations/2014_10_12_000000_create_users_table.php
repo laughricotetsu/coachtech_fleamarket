@@ -21,8 +21,8 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->rememberToken();
             $table->string('avatar_image')->nullable();
-            $table->string('postal_code');
-            $table->string('address');
+            $table->string('postal_code')->nullable();
+            $table->string('address')->nullable();
             $table->string('building')->nullable();
             $table->timestamps();
         });
