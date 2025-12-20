@@ -19,6 +19,20 @@ body {
     overflow: hidden;
 }
 
+.auth-header {
+    background: #000;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.auth-header-inner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 20px;
+}
+
 .auth-header img {
     height: 24px;
 }
@@ -80,4 +94,11 @@ body {
     font-size: 13px;
     color: #007bff;
     text-decoration: none;
+}
+
+.error-message {
+    color: #e60023;
+    /* 赤 */
+    font-size: 13px;
+    margin-top: 6px;
 }

@@ -1,5 +1,5 @@
 body {
-    background: #1a1a1a;
+    background: #fff;
     font-family: "Hiragino Sans", "Helvetica", sans-serif;
 }
 
@@ -14,7 +14,7 @@ body {
 
 /* 白カード */
 .auth-card {
-    width: 600px;
+    width: 1200px;
     background: #fff;
     padding: 48px 60px;
     border-radius: 8px;
@@ -73,4 +73,22 @@ body {
     font-size: 13px;
     color: #007bff;
     text-decoration: none;
+}
+
+.auth-header {
+    background: #000;
+    height: 60px;
+    display: flex;
+    align-items: center;
+}
+
+.auth-header-inner {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-left: 20px;
+}
+
+.auth-header img {
+    height: 24px;
 }

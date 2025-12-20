@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\PurchaseController;
-use App\Http\Controllers\Auth\RegisterController;
+use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\SellController;
 use App\Http\Controllers\MyPageController;
 use App\Http\Controllers\ProfileController;
@@ -44,3 +44,8 @@ Route::get('/mypage', fn () => view('mypage'))->name('mypage');
 Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
 Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
 
+Route::post('/register', [RegisterController::class, 'store'])->name('register');
+
+Route::middleware(['auth', 'verified', 'profile.completed'])->group(function () {
+    Route::get('/mypage', ...);
+});

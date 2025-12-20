@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @push('styles')
 <link rel="stylesheet" href="{{ asset('css/register.css') }}">
@@ -20,24 +20,36 @@
                 <div class="form-group">
                     <label>ユーザー名</label>
                     <input type="text" name="name" value="{{ old('name') }}">
+                        @error('name')
+                        <p class="error-message">{{ $message }}</p>
+                        @enderror
                 </div>
 
                 {{-- メール --}}
                 <div class="form-group">
                     <label>メールアドレス</label>
                     <input type="email" name="email" value="{{ old('email') }}">
+                    @error('email')
+                    <p class="error-message">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 {{-- パスワード --}}
                 <div class="form-group">
                     <label>パスワード</label>
                     <input type="password" name="password">
+                    @error('password')
+                    <p class="error-message">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 {{-- 確認 --}}
                 <div class="form-group">
                     <label>確認用パスワード</label>
                     <input type="password" name="password_confirmation">
+                    @error('password_confirmation')
+                    <p class="error-message">{{ $message }}</p>
+                    @enderror
                 </div>
 
                 <button type="submit" class="submit-btn">
