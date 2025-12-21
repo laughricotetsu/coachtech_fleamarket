@@ -18,12 +18,13 @@ class ProfileCompleted
      */
     public function handle($request, Closure $next)
 {
-    $user = Auth::user();
-
-    if (!$user->profile_completed) {
-        return redirect()->route('profile.edit');
-    }
-
+     if (
+            Auth::check() &&
+            Auth::user()->profile_completed === false &&
+            !$request->routeIs('profile.edit', 'profile.update')
+        ) {
+            return redirect()->route('profile.edit');
+        }
     return $next($request);
     }
 

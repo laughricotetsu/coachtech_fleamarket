@@ -5,6 +5,7 @@
     <title>COACHTECH</title>
 
     <link rel="stylesheet" href="{{ asset('css/register.css') }}">
+    @stack('styles')
 </head>
 <body>
 
@@ -15,7 +16,7 @@
         </div>
     </header>
 
-    <main>
+    <main >
         @yield('content')
     </main>
 

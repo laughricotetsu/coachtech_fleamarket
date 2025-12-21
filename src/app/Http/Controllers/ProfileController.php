@@ -20,17 +20,19 @@ class ProfileController extends Controller
      */
     public function update(Request $request)
     {
-        // バリデーション（例）
-        $request->validate([
-            'bio' => 'required|max:200',
-        ]);
+        auth::user()->update([
+        'name' => $request->name,
+        'postal_code' => $request->postal_code,
+        'address' => $request->address,
+        'profile_completed' => true,
+    ]);
 
-        // プロフィール更新
-        Auth::user()->update([
-            'bio' => $request->bio,
-            'profile_completed' => true,
-        ]);
+    Auth::user()->update([
+        'name' => $request->name,
+        'profile_completed' => true,
+    ]);
 
-        return redirect()->route('mypage');
+        return redirect()->route('items.index');
     }
 }
+
