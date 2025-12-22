@@ -41,7 +41,6 @@
                 </a>
 
                 <a href="{{ route('mypage') }}">マイページ</a>
-                <a href="{{ route('items.create') }}" class="sell-btn">出品</a>
 
                 <form id="logout-form" action="{{ route('logout') }}" method="POST">
                     @csrf

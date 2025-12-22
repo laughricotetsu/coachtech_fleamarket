@@ -12,7 +12,7 @@ class ProfileController extends Controller
      */
     public function edit()
     {
-        return view('profile.edit');
+        return view('mypage.edit_profile');
     }
 
     /**
@@ -20,19 +20,15 @@ class ProfileController extends Controller
      */
     public function update(Request $request)
     {
-        auth::user()->update([
-        'name' => $request->name,
-        'postal_code' => $request->postal_code,
-        'address' => $request->address,
+        Auth::user()->update([
+        'name'         => $request->name,
+        'postal_code'  => $request->postal_code,
+        'address'      => $request->address,
+        'building'     => $request->building,
         'profile_completed' => true,
     ]);
 
-    Auth::user()->update([
-        'name' => $request->name,
-        'profile_completed' => true,
-    ]);
-
-        return redirect()->route('items.index');
+        return redirect()->route('mypage');
     }
 }
 

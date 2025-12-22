@@ -21,10 +21,6 @@ Route::post('/register', [RegisterController::class, 'store'])->name('register')
 Route::get('/purchase/{item_id}', [ItemController::class, 'purchase'])->name('items.purchase');
 Route::post('/purchase/{item_id}', [ItemController::class, 'store'])->name('items.purchase.store');
 
-// 出品
-Route::get('/sell', [SellController::class, 'create'])->name('items.create');
-Route::post('/sell', [SellController::class, 'store'])->name('items.store');
-Route::put('/items/{item}', [ItemController::class, 'update'])->name('items.update');
 
 //送付先住所保存処理
 Route::post('/purchase/address/{item}', [ItemController::class, 'updateAddress'])
@@ -46,43 +42,28 @@ Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('prof
 | メール認証関連
 |--------------------------------------------------------------------------
 */
-
 Route::middleware('auth')->group(function () {
 
+    // 認証案内画面
     Route::get('/email/verify', function () {
         return view('auth.verify-email');
     })->name('verification.notice');
 
+    // 認証リンククリック時
     Route::get('/email/verify/{id}/{hash}', function (EmailVerificationRequest $request) {
         $request->fulfill();
-        return redirect()->route('profile.edit');
-    })->middleware('signed')->name('verification.verify');
 
+        // 初回プロフィールへ
+        return redirect()->route('profile.edit');
+    })->middleware(['signed'])->name('verification.verify');
+
+    // 認証メール再送
     Route::post('/email/verification-notification', function (Request $request) {
         $request->user()->sendEmailVerificationNotification();
-        return back();
+        return back()->with('status', 'verification-link-sent');
     })->middleware('throttle:6,1')->name('verification.send');
 });
 
-/*
-|--------------------------------------------------------------------------
-| 初回プロフィール（メール認証後）
-|--------------------------------------------------------------------------
-*/
-
-Route::middleware(['auth', 'verified'])->group(function () {
-
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('/profile', [ProfileController::class, 'update'])->name('profile.update');
-});
-
-/*
-|--------------------------------------------------------------------------
-| 通常ページ（プロフィール完了後のみ）
-|--------------------------------------------------------------------------
-*/
-
-Route::middleware(['auth', 'verified', 'profile.completed'])->group(function () {
-
-    Route::get('/mypage', [MyPageController::class, 'index'])->name('mypage');
+    Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/', [ItemController::class, 'index'])->name('items.index');
 });
