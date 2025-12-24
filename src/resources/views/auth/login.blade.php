@@ -1,3 +1,4 @@
+
 @extends('layouts.auth')
 
 @push('styles')
@@ -14,16 +15,27 @@
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
+            @if ($errors->has('email'))
+                <p class="error-text">ログイン情報が登録されていません</p>
+            @endif
+
+
             {{-- メール --}}
             <div class="form-group">
                 <label>メールアドレス</label>
                 <input type="email" name="email" value="{{ old('email') }}">
+                @error('email')
+                    <p class="error-text">{{ $message }}</p>
+                @enderror
             </div>
 
             {{-- パスワード --}}
             <div class="form-group">
                 <label>パスワード</label>
                 <input type="password" name="password">
+                @error('password')
+                    <p class="error-text">{{ $message }}</p>
+                @enderror
             </div>
 
             <button type="submit" class="submit-btn">

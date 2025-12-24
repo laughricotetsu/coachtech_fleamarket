@@ -92,3 +92,14 @@ body {
 .auth-header img {
     height: 24px;
 }
+
+.error-box {
+    margin-bottom: 20px;
+}
+
+.error-text {
+    color: #e60023;
+    /* 赤字 */
+    font-size: 14px;
+    margin: 5px 0;
+}

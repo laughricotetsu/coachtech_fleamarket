@@ -67,3 +67,4 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [ItemController::class, 'index'])->name('items.index');
 });
+
