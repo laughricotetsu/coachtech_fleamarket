@@ -35,10 +35,13 @@
         {{-- メニュー --}}
         <nav class="header-nav">
             @auth
-                <a href="{{ route('logout') }}"
-                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                <form method="POST" action="{{ route('logout') }}">
+                @csrf
+                    <button type="submit" class="logout-btn">
                     ログアウト
-                </a>
+                    </button>
+                </form>
+
 
                 <a href="{{ route('mypage') }}">マイページ</a>
 
