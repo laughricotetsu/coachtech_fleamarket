@@ -39,6 +39,10 @@ class FortifyServiceProvider extends ServiceProvider
         Fortify::loginView(function () {
             return view('auth.login');
         });
+        
+        Fortify::verifyEmailView(function () {
+	        return view('auth.verify-email');
+        });
 
         RateLimiter::for('login', function (Request $request) {
             $email = (string) $request->email;
@@ -46,36 +50,36 @@ class FortifyServiceProvider extends ServiceProvider
             return Limit::perMinute(10)->by($email . $request->ip());
         });
 
-        Fortify::authenticateUsing(function (Request $request) {
+    //     Fortify::authenticateUsing(function (Request $request) {
 
-       // 🔽 バリデーション
-        $request->validate(
-            [
-                'email'    => ['required', 'email'],
-                'password' => ['required'],
-            ],
-            [
-                'email.required'    => 'メールアドレスを入力してください',
-                'email.email'       => 'メールアドレスを入力してください',
-                'password.required' => 'パスワードを入力してください',
-            ]
-        );
+    //    // 🔽 バリデーション
+    //     $request->validate(
+    //         [
+    //             'email'    => ['required', 'email'],
+    //             'password' => ['required'],
+    //         ],
+    //         [
+    //             'email.required'    => 'メールアドレスを入力してください',
+    //             'email.email'       => 'メールアドレスを入力してください',
+    //             'password.required' => 'パスワードを入力してください',
+    //         ]
+    //     );
 
-        // 🔽 認証チェック
-        if (
-            Auth::attempt([
-                'email'    => $request->email,
-                'password' => $request->password,
-            ])
-        ) {
-            return Auth::user();
-        }
+    //     // 🔽 認証チェック
+    //     if (
+    //         Auth::attempt([
+    //             'email'    => $request->email,
+    //             'password' => $request->password,
+    //         ])
+    //     ) {
+    //         return Auth::user();
+    //     }
 
-        // 🔽 ログイン失敗時メッセージ
-        throw ValidationException::withMessages([
-            'email' => ['ログイン情報が登録されていません'],
-        ]);
-    });
-}
+    //     // 🔽 ログイン失敗時メッセージ
+    //     throw ValidationException::withMessages([
+    //         'email' => ['ログイン情報が登録されていません'],
+    //     ]);
+    // });
+    }  
 
 }

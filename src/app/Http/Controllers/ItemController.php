@@ -10,26 +10,37 @@ use Illuminate\Support\Facades\Auth;
 class ItemController extends Controller
 {
     public function index(Request $request)
-{
-    $items = Item::with('category')->get();
-    return view('items.index', compact('items'));
+    {
+        $user=Auth::user();
+        if ($user){
+             if($user && $user->hasVerifiedEmail()==false){
+                return redirect()->route('verification.notice');
+             }
+            elseif ( $user->postal_code==null && $user->hasVerifiedEmail()){
+               return redirect ('/mypage/profile');
+            }
+        }
 
-    // キーワード検索
-    if ($request->filled('keyword')) {
-        $query->where('name', 'like', '%' . $request->keyword . '%');
+        
+        $items = Item::with('category')->get();
+        return view('items.index', compact('items'));
+
+        // キーワード検索
+        if ($request->filled('keyword')) {
+            $query->where('name', 'like', '%' . $request->keyword . '%');
+        }
+
+        // 並び替え
+        if ($request->sort === 'price_asc') {
+            $query->orderBy('price', 'asc');
+        } elseif ($request->sort === 'price_desc') {
+            $query->orderBy('price', 'desc');
+        }
+
+        $items = $query->paginate(6);
+
+        return view('items.index', compact('items'));
     }
-
-    // 並び替え
-    if ($request->sort === 'price_asc') {
-        $query->orderBy('price', 'asc');
-    } elseif ($request->sort === 'price_desc') {
-        $query->orderBy('price', 'desc');
-    }
-
-    $items = $query->paginate(6);
-
-    return view('items.index', compact('items'));
-}
 
 
     /**
