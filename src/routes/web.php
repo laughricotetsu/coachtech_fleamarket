@@ -35,7 +35,7 @@ Route::get('/mypage', fn () => view('mypage'))->name('mypage');
 
 // プロフィール編集
 Route::get('/mypage/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-Route::post('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
+Route::put('/mypage/profile', [ProfileController::class, 'update'])->name('profile.update');
 
 /*
 |--------------------------------------------------------------------------

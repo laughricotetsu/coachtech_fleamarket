@@ -31,14 +31,15 @@ class ProfileController extends Controller
     }
 
     $user->update([
-        'name' => $request->name,
+        'name'        => $request->name,
         'postal_code' => $request->postal_code,
-        'address' => $request->address,
-        'building' => $request->building,
+        'address'     => $request->address,
+        'building'    => $request->building,
         'profile_completed' => true,
     ]);
 
-        return redirect()->route('mypage');
+        return redirect()->route('items.index')
+            ->with('success', 'プロフィールを更新しました');
     }
 }
 

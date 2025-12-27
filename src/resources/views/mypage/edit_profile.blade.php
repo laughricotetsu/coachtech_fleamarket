@@ -12,6 +12,7 @@
 
     <form action="{{ route('profile.update') }}" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
 
         {{-- アイコン --}}
         <div class="profile-image-area">
