@@ -1,0 +1,69 @@
+@extends('layouts.auth')
+
+@push('styles')
+<link rel="stylesheet" href="{{ asset('css/sanitize.css') }}" />
+<link rel="stylesheet" href="{{ asset('css/register.css') }}">
+@endpush
+
+@section('content')
+<div class="auth-wrapper">
+
+    <div class="auth-card">
+
+        {{-- コンテンツ --}}
+        <div class="auth-body">
+            <h2 class="auth-title">会員登録</h2>
+
+            <form method="POST" action="{{ route('register') }}">
+                @csrf
+
+                {{-- ユーザー名 --}}
+                <div class="form-group">
+                    <label>ユーザー名</label>
+                    <input type="text" name="name" value="{{ old('name') }}">
+                        @error('name')
+                        <p class="error-message">{{ $message }}</p>
+                        @enderror
+                </div>
+
+                {{-- メール --}}
+                <div class="form-group">
+                    <label>メールアドレス</label>
+                    <input type="email" name="email" value="{{ old('email') }}">
+                    @error('email')
+                    <p class="error-message">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                {{-- パスワード --}}
+                <div class="form-group">
+                    <label>パスワード</label>
+                    <input type="password" name="password">
+                    @error('password')
+                    <p class="error-message">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                {{-- 確認 --}}
+                <div class="form-group">
+                    <label>確認用パスワード</label>
+                    <input type="password" name="password_confirmation">
+                    @error('password_confirmation')
+                    <p class="error-message">{{ $message }}</p>
+                    @enderror
+                </div>
+
+                <button type="submit" class="submit-btn">
+                    登録する
+                </button>
+            </form>
+
+            <div class="login-link">
+                <a href="{{ route('login') }}">ログインはこちら</a>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+@endsection

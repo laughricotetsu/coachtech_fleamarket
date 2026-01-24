@@ -1,0 +1,98 @@
+.mypage-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
+
+/* プロフィール */
+.profile-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.profile-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.avatar {
+    width: 80px;
+    height: 80px;
+    background: #ddd;
+    border-radius: 50%;
+}
+
+.username {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* タブ */
+.tab-area {
+    display: flex;
+    gap: 30px;
+    border-bottom: 1px solid #ddd;
+    margin-bottom: 30px;
+}
+
+.tab {
+    background: none;
+    border: none;
+    font-size: 16px;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+.tab.active {
+    color: red;
+    border-bottom: 2px solid red;
+}
+
+/* 商品一覧 */
+.item-list {
+    display: flex;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.item-list.active {
+    display: grid;
+}
+
+.item-card {
+    width: 200px;
+}
+
+.item-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.item-card p {
+    margin-top: 8px;
+    font-size: 14px;
+}
+
+@media screen and (max-width: 850px) {
+
+    .profile-area {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .profile-edit-btn {
+        align-self: flex-end;
+    }
+
+    .item-list.active {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+}

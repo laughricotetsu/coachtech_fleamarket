@@ -1,0 +1,151 @@
+/* 背景 */
+body {
+    background: #f7f7f7;
+}
+
+/* 全体 */
+.item-create {
+    max-width: 700px;
+    margin: 40px auto;
+    background: #fff;
+    padding: 40px 50px;
+    border-radius: 8px;
+}
+
+/* タイトル */
+.page-title {
+    text-align: center;
+    font-size: 22px;
+    font-weight: bold;
+    margin-bottom: 30px;
+}
+
+/* セクション */
+.form-section {
+    margin-bottom: 30px;
+}
+
+.section-title {
+    font-weight: bold;
+    margin-bottom: 15px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 8px;
+}
+
+/* ラベル */
+.form-label,
+.section-label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin: 15px 0 8px;
+}
+
+/* 入力系 */
+.input-box,
+.select-box,
+.textarea-box {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.textarea-box {
+    height: 120px;
+    resize: none;
+}
+
+/* 画像アップロード */
+.image-upload {
+    border: 1px dashed #ccc;
+    padding: 30px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+/* カテゴリ */
+.category-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.category-item input {
+    display: none;
+}
+
+.category-item span {
+    display: inline-block;
+    padding: 6px 14px;
+    border: 1px solid #ff5b5b;
+    border-radius: 20px;
+    font-size: 12px;
+    color: #ff5b5b;
+    cursor: pointer;
+}
+
+.category-item input:checked+span {
+    background: #ff5b5b;
+    color: #fff;
+}
+
+/* 価格 */
+.price-box {
+    position: relative;
+}
+
+.price-box .yen {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #555;
+}
+
+.price-box input {
+    width: 100%;
+    padding: 10px 10px 10px 30px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+/* 出品ボタン */
+.submit-btn {
+    width: 100%;
+    background: #ff5b5b;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* バリデーションエラー */
+.error-message {
+    color: #d32f2f;
+    /* 赤 */
+    font-size: 14px;
+    margin-top: 6px;
+}
+
+.item-create .error-message {
+    color: red !important;
+}
+/* ===============================
+タブレット対応（768–850px）
+================================ */
+
+@media screen and (max-width: 850px) {
+
+    .page-title {
+        padding: 0 20px;
+        font-size: 20px;
+    }
+
+    .price-box input {
+        width: 100%;
+    }
+}
