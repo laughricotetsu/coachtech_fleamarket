@@ -20,6 +20,8 @@ class PurchaseFactory extends Factory
         return [
             'user_id' => User::factory(),
             'item_id' => Item::factory(),
+            'price'   => 1000,
+            'payment_method' => 'credit_card',
         ];
     }
 }

@@ -22,7 +22,7 @@ class ItemIndexTest extends TestCase
     {
         $items = Item::factory()->count(3)->create();
 
-        $response = $this->get('/items');
+        $response = $this->get('/');
 
         $response->assertStatus(200);
 
@@ -61,22 +61,20 @@ class ItemIndexTest extends TestCase
 
         $myItem = Item::factory()->create([
             'user_id' => $user->id,
-            'name' => '自分の商品',
+            'name' => '[テスト用]自分の商品',
         ]);
 
         $otherItem = Item::factory()->create([
             'user_id' => $otherUser->id,
-            'name' => '他人の商品',
+            'name' => '[テスト用]他人の商品',
         ]);
 
         $this->actingAs($user);
 
-        $response = $this->get('/items');
+        $response = $this->get('/');
 
-$response->dump();
-
-        // $response->assertDontSee('自分の商品');
-        // $response->assertSee('他人の商品');
+        $response->assertDontSee('[テスト用]自分の商品');
+        $response->assertSee('[テスト用]他人の商品');
     }
 
     }

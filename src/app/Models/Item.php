@@ -49,6 +49,11 @@ class Item extends Model
         return $this->hasOne(Purchase::class);
     }
 
+    public function getIsSoldAttribute()
+    {
+        return $this->purchase !== null;
+    }
+
     public function order()
     {
         return $this->hasOne(Order::class);
