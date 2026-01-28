@@ -97,35 +97,32 @@ public function index(Request $request)
         ]);
     }
 
-
-    public function addComment(CommentRequest $request)
+    public function addComment(CommentRequest $request, Item $item)
     {
-        $validated = $request->validated();
-
-        $comment = Item::find($request->id)->comments()->create([
+        $item->comments()->create([
             'user_id' => auth()->id(),
-            'item_id' => $request->id,
-            'body' => $validated['comment'],
+            'body' => $request->validated()['comment'],
         ]);
-        return redirect('/item/'.$request->id);
 
+        return redirect()->route('items.show', $item->id);
     }
 
-    public function storeComment(CommentRequest $request, Item $item)
-    {
-        $validated = $request->validated();
-        $comment = $item->comments()->create([
-            'user_id' => auth()->id(),
-            'item_id' => $item->id,
-            'body' => $validated['comment'],
-        ]);
-        return response()->json([
-            'id' => $comment->id,
-            'body' => $comment->body,
-            'user_name' => auth()->user()->name,
-            'comments_count' => $item->comments()->count(),
-        ]);
-    }
+
+    // public function storeComment(CommentRequest $request, Item $item)
+    // {
+    //     $validated = $request->validated();
+    //     $comment = $item->comments()->create([
+    //         'user_id' => auth()->id(),
+    //         'item_id' => $item->id,
+    //         'body' => $validated['comment'],
+    //     ]);
+    //     return response()->json([
+    //         'id' => $comment->id,
+    //         'body' => $comment->body,
+    //         'user_name' => auth()->user()->name,
+    //         'comments_count' => $item->comments()->count(),
+    //     ]);
+    // }
 
 
 

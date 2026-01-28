@@ -50,10 +50,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/item/{item}/like', [ItemController::class, 'toggleLike'])
     ->name('items.like');
 
-    Route::post('/item/{item}/comment', [ItemController::class, 'storeComment'])
-    ->name('items.comments.store');
-
-    Route::post('/item/comments/add', [ItemController::class, 'addComment']);
+    Route::post('/item/{item}/comment', [ItemController::class, 'addComment'])
+        ->name('items.comment');
 
 
     // Stripe決済

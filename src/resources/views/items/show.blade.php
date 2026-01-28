@@ -115,7 +115,7 @@
 <div class="comment-wrapper">
     <h3 class="section-title">商品のコメント</h3>
 
-    <form action="/item/comments/add" method="post">
+    <form action="{{ route('items.comment', $item->id) }}" method="post">
         @csrf
 
             {{-- エラーメッセージ --}}
