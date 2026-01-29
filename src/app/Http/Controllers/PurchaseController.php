@@ -112,4 +112,16 @@ class PurchaseController extends Controller
             return redirect()->route('purchase', $item);
         }
 
+        public function store(Request $request, Item $item)
+        {
+            $item->purchase()->create([
+                'user_id' => auth()->id(),
+                'price' => $item->price,
+                'payment_method' => 'credit_card', // テスト用
+            ]);
+
+            return redirect()->route('items.show', $item->id);
+        }
+
+
 }

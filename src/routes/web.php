@@ -23,6 +23,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // 商品購入
     Route::get('/purchase/{item}', [ItemController::class, 'purchase'])->name('purchase');
 
+    Route::post('/item/{item}/purchase', [PurchaseController::class, 'store'])
+    ->name('items.purchase');
+
+
     // 配送先住所変更（表示）
     Route::get('/purchase/{item}/address', [AddressController::class, 'edit'])
         ->name('purchase.address.edit');
@@ -33,7 +37,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     // マイページ（プロフィール / 購入履歴 / 出品履歴 / MyList）
     Route::get('/mypage', [MyPageController::class, 'index'])
-        ->middleware(['auth', 'verified'])
         ->name('mypage.index');
 
     // プロフィール編集
