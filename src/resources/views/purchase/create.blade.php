@@ -28,6 +28,13 @@
             <hr>
 
         <!-- 支払い方法 -->
+        支払い方法：
+        @if ($purchase && $purchase->payment_method === 'credit_card')
+            クレジットカード
+        @elseif ($purchase && $purchase->payment_method === 'convenience')
+            コンビニ払い
+        @endif
+
         <div class="payment-box">
             <p class="label">支払い方法</p>
 
@@ -68,7 +75,7 @@
             @php
                 $shipping = session('purchase_address', [
                     'postal_code'      => $user->postal_code,
-                    'shipping_address' => $user->address,
+                    'address'          => $user->address,
                     'building'         => $user->building,
                 ]);
             @endphp
@@ -88,7 +95,7 @@
                 <div class="shipping-address">
                     <p>〒 {{ $shipping['postal_code'] }}</p>
                     <p>
-                        {{ $shipping['shipping_address'] }}
+                        {{ $shipping['address'] }}
                         {{ $shipping['building'] }}
                     </p>
                 </div>
@@ -129,7 +136,7 @@
                     <!-- セッションから取得した値を hidden で送信 -->
                     <input type="hidden" name="payment_method" value="{{ session('payment_method') }}">
                     <input type="hidden" name="postal_code" value="{{ $shipping['postal_code'] }}">
-                    <input type="hidden" name="address" value="{{ $shipping['shipping_address'] }}">
+                    <input type="hidden" name="address" value="{{ $shipping['address'] }}">
                     <button class="buy-button">購入する</button>
                 </form>
             @endif

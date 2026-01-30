@@ -22,7 +22,7 @@ public function update(AddressRequest $request, Item $item)
     session([
         'purchase_address' => [
             'postal_code'      => $validated['postal_code'],
-            'shipping_address' => $validated['shipping_address'],
+            'address'          => $validated['shipping_address'],
             'building'         => $validated['building'] ?? '',
         ]
     ]);

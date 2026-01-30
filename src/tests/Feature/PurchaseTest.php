@@ -59,29 +59,124 @@ class PurchaseTest extends TestCase
             $response->assertSee('Sold');
         }
 
+    // /** @test */
+    // public function プロフィール画面に購入した商品が表示される()
+    // {
+    //     $buyer = User::factory()->create([
+    //     'email_verified_at' => now(),
+    //     ]);
+
+    //     $item = Item::factory()->create([
+    //     'name' => '【テスト用】購入商品',
+    //     ]);
+
+    //     Purchase::factory()->create([
+    //     'user_id' => $buyer->id,
+    //     'item_id' => $item->id,
+    //     'price' => $item->price,
+    //     ]);
+
+    //     $this->actingAs($buyer);
+
+    //     $response = $this->get('/mypage');
+
+    //     $response->assertStatus(200);
+    //     $response->assertSee('【テスト用】購入商品');
+    // }
+
     /** @test */
-    public function プロフィール画面に購入した商品が表示される()
+
+    public function 小計画面で変更が反映される()
+    {
+        $this->withoutExceptionHandling();
+
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
+
+        $item = Item::factory()->create([
+            'price' => 1000,
+        ]);
+
+        $this->actingAs($user);
+
+        // 支払い方法を選択して保存
+        $this->post(route('items.purchase', $item->id), [
+            'payment_method' => 'credit_card',
+        ]);
+
+        // 小計画面を表示
+        $response = $this->get(route('purchase', $item->id));
+
+        $response->assertStatus(200);
+        $response->assertSee('クレジットカード');
+    }
+
+    /** @test */
+    public function 送付先住所変更画面で登録した住所が購入画面に反映される()
+    {
+        $buyer = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
+
+        $item = Item::factory()->create();
+
+        $this->actingAs($buyer);
+
+        // 住所変更
+        $this->post(route('purchase.address.update', $item->id), [
+            'postal_code' => '123-4567',
+            'shipping_address' => '東京都テスト区1-2-3',
+            'building' => 'テストマンション101',
+        ]);
+
+        // 購入画面を表示
+        $response = $this->get(route('purchase', $item->id));
+
+        $response->assertStatus(200);
+        $response->assertSee('123-4567');
+        $response->assertSee('東京都テスト区1-2-3');
+        $response->assertSee('テストマンション101');
+
+        }
+
+    /** @test */
+    public function 購入時に送付先住所がpurchasesテーブルに保存される()
     {
         $buyer = User::factory()->create([
             'email_verified_at' => now(),
         ]);
 
         $item = Item::factory()->create([
-            'name' => '【テスト用】購入商品',
-        ]);
-
-        Purchase::factory()->create([
-            'user_id' => $buyer->id,
-            'item_id' => $item->id,
-            'price' => $item->price,
+            'price' => 1000,
         ]);
 
         $this->actingAs($buyer);
 
-        $response = $this->get('/mypage');
+        // ① 住所変更（sessionに保存）
+        $this->post(route('purchase.address.update', $item->id), [
+            'postal_code' => '123-4567',
+            'shipping_address' => '東京都テスト区1-2-3',
+            'building' => 'テストマンション101',
+        ]);
 
-        $response->assertStatus(200);
-        $response->assertSee('【テスト用】購入商品');
+        // ② 購入確定
+        $this->post(route('purchase.checkout', $item->id), [
+            'payment_method' => 'card',
+        ]);
+
+
+        // ③ DB確認
+        $this->assertDatabaseHas('purchases', [
+            'user_id' => $buyer->id,
+            'item_id' => $item->id,
+            'postal_code' => '123-4567',
+            'shipping_address' => '東京都テスト区1-2-3',
+            'building' => 'テストマンション101',
+        ]);
+
+
     }
+
 
     }

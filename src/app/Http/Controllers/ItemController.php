@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Item;
+use App\Models\Purchase;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Category;
 use App\Models\Comment;
@@ -71,7 +72,6 @@ public function index(Request $request)
     }
 
 
-
     public function toggleLike(Item $item)
     {
         $user = auth()->user();
@@ -107,25 +107,6 @@ public function index(Request $request)
         return redirect()->route('items.show', $item->id);
     }
 
-
-    // public function storeComment(CommentRequest $request, Item $item)
-    // {
-    //     $validated = $request->validated();
-    //     $comment = $item->comments()->create([
-    //         'user_id' => auth()->id(),
-    //         'item_id' => $item->id,
-    //         'body' => $validated['comment'],
-    //     ]);
-    //     return response()->json([
-    //         'id' => $comment->id,
-    //         'body' => $comment->body,
-    //         'user_name' => auth()->user()->name,
-    //         'comments_count' => $item->comments()->count(),
-    //     ]);
-    // }
-
-
-
     /**
      * 商品購入ページ
      * URL: /purchase/{item_id}
@@ -140,7 +121,11 @@ public function index(Request $request)
                 ->with('error', '購入するにはログインが必要です');
         }
 
-        return view('purchase.create', compact('item','user'));
+        $purchase = Purchase::where('item_id', $item->id)
+        ->where('user_id', $user->id)
+        ->first();
+
+        return view('purchase.create', compact('item', 'user', 'purchase'));
     }
 
 
