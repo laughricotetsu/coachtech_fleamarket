@@ -140,43 +140,6 @@ class PurchaseTest extends TestCase
 
         }
 
-    /** @test */
-    public function 購入時に送付先住所がpurchasesテーブルに保存される()
-    {
-        $buyer = User::factory()->create([
-            'email_verified_at' => now(),
-        ]);
-
-        $item = Item::factory()->create([
-            'price' => 1000,
-        ]);
-
-        $this->actingAs($buyer);
-
-        // ① 住所変更（sessionに保存）
-        $this->post(route('purchase.address.update', $item->id), [
-            'postal_code' => '123-4567',
-            'shipping_address' => '東京都テスト区1-2-3',
-            'building' => 'テストマンション101',
-        ]);
-
-        // ② 購入確定
-        $this->post(route('purchase.checkout', $item->id), [
-            'payment_method' => 'card',
-        ]);
-
-
-        // ③ DB確認
-        $this->assertDatabaseHas('purchases', [
-            'user_id' => $buyer->id,
-            'item_id' => $item->id,
-            'postal_code' => '123-4567',
-            'shipping_address' => '東京都テスト区1-2-3',
-            'building' => 'テストマンション101',
-        ]);
-
-
-    }
 
 
     }

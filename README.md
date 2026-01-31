@@ -88,7 +88,7 @@ MySQL8.0.26
 本アプリケーションは、ユーザーが商品を出品・購入し、商品に対していいねやコメントを行えるフリマアプリです。  
 それぞれの機能を適切に管理するため、正規化を意識したテーブル設計を行いました。  
   
-2. ER図  
+2. テーブル構成  
   
 本アプリケーションの ER 図は以下のテーブルで構成されている。  
 - users  
@@ -136,15 +136,53 @@ purchase テーブルに住所情報を保持し、購入時点の情報を保�
 likes・comments を独立テーブルとすることで、将来的な機能拡張にも対応しやすい構成とした.  
 Laravel の Eloquent リレーションと整合性の取れた設計としている.  
   
-6. ER図  
+5. ER図  
+  
 ![alt](erd.drawio.png)  
   
-  5. 使用技術
-
+6. 使用技術  
+  
 Laravel  
 MySQL  
 draw.io（ER図作成）  
   
+  
+## テストケース（単体テスト）  
+  
+### テスト用の.envファイルの作成  
+PHPコンテナにログインし、.envをコピーして.env.testingファイルを作成  
+  
+ $ cp .env .env.testing  
+  
+### .env.testingの編集  
+  
+1. ファイルの文頭部分にあるAPP_ENVとAPP_KEYを編集  
+  
+APP_ENV=test  
+APP_KEY=  
+  
+2. データベースの接続情報を編集  
+  
+DB_DATABASE=demo_test  
+DB_USERNAME=root  
+DB_PASSWORD=root  
+  
+3. テスト用のアプリケーションキーを加える  
+  
+ $ php artisan key:generate --env=testing  
+  
+ $ php artisan config:clear  
+  
+### テスト用のテーブルを作成  
+  
+ $ php artisan migrate --env=testing  
+  
+### PHPUnitを実行  
+  
+ $ php artisan test  
+  
+  
+
 ## URL  
 - 開発環境：http://localhost/
 - phpMyAdmin:：http://localhost:8080/

@@ -24,6 +24,7 @@ public function index(Request $request)
         // クエリビルダ初期化
         $query = Item::query()->with(['categories', 'purchase']);
 
+
         // 🔽 自分が出品した商品は除外
         if (Auth::check()) {
             $query->where('user_id', '!=', Auth::id());
@@ -34,6 +35,9 @@ public function index(Request $request)
             $query->whereHas('likes', function ($q) {
                 $q->where('user_id', Auth::id());
             });
+        }
+        elseif($request->tab === 'mylist'){
+            $query->whereRaw('0 = 1');
         }
 
         // キーワード検索

@@ -8,10 +8,12 @@ use Tests\TestCase;
 use App\Models\Item;
 use App\Models\User;
 use App\Models\Purchase;
+use App\Models\Category;
 
 
 class ItemIndexTest extends TestCase
 {
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      *
@@ -56,15 +58,20 @@ class ItemIndexTest extends TestCase
     /** @test */
     public function 自分が出品した商品は表示されない()
     {
-        $user = User::factory()->create();
-        $otherUser = User::factory()->create();
+        $user = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
 
-        $myItem = Item::factory()->create([
+        $otherUser = User::factory()->create([
+            'email_verified_at' => now(),
+        ]);
+
+        Item::factory()->create([
             'user_id' => $user->id,
             'name' => '[テスト用]自分の商品',
         ]);
 
-        $otherItem = Item::factory()->create([
+        Item::factory()->create([
             'user_id' => $otherUser->id,
             'name' => '[テスト用]他人の商品',
         ]);
@@ -76,5 +83,6 @@ class ItemIndexTest extends TestCase
         $response->assertDontSee('[テスト用]自分の商品');
         $response->assertSee('[テスト用]他人の商品');
     }
+
 
     }
