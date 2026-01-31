@@ -40,7 +40,13 @@ php artisan db:seed
 シンボリックリンク作成  
 php artisan storage:link  
   
-
+## 使用技術(実行環境)  
+  
+PHP8.3.0  
+Laravel8.83.27.  
+MySQL8.0.26  
+  
+  
 ## メール認証機能  
   
 1. docker-compose.ymlを修正  
@@ -74,13 +80,6 @@ php artisan storage:link
     'key' => env('STRIPE_KEY'),  
     'secret' => env('STRIPE_SECRET'),  
  ],  
-
-
-## 使用技術(実行環境)  
-
-PHP8.3.0  
-Laravel8.83.27.  
-MySQL8.0.26  
   
   
 ## ER図・データベース設計  
@@ -92,41 +91,41 @@ MySQL8.0.26
 2. ER図  
   
 本アプリケーションの ER 図は以下のテーブルで構成されている。  
--users  
--items  
--categories  
--category_item（中間テーブル）  
--likes  
--comments  
--purchase  
+- users  
+- items  
+- categories  
+- category_item（中間テーブル）  
+- likes  
+- comments  
+- purchase  
   
 items と categories は多対多の関係となるため、中間テーブルとして category_item を設けています。  
 要件シートのテーブル仕様書にも詳細を記載しています。  
   
 3. 各テーブルの役割  
-users テーブル  
+- users テーブル  
 ユーザー情報を管理するテーブル。  
 ログイン情報に加え、配送先住所やプロフィール画像を保持する。  
   
-items テーブル  
+- items テーブル  
 ユーザーが出品した商品情報を管理するテーブル。  
 1人のユーザーは複数の商品を出品できる。  
   
-categories テーブル  
+- categories テーブル  
 商品カテゴリを管理するマスタテーブル。  
   
-category_item テーブル  
+- category_item テーブル  
 items と categories の多対多関係を管理する中間テーブル。  
   
-likes テーブル  
+- likes テーブル  
 ユーザーが商品に対して行った「いいね」を管理するテーブル。  
 1人のユーザーは複数の商品にいいねをすることができる。  
   
-comments テーブル  
+- comments テーブル  
 商品に対するコメントを管理するテーブル。  
 ユーザーと商品の紐づきを保持する。  
   
-purchase テーブル  
+- purchase テーブル  
 商品の購入履歴を管理するテーブル。  
 購入時点の価格・配送先住所・支払い方法を保持することで、後から情報が変更されても履歴として正しく残る設計としている。  
   
