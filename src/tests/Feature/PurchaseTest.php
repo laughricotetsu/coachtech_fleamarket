@@ -59,33 +59,7 @@ class PurchaseTest extends TestCase
             $response->assertSee('Sold');
         }
 
-    // /** @test */
-    // public function プロフィール画面に購入した商品が表示される()
-    // {
-    //     $buyer = User::factory()->create([
-    //     'email_verified_at' => now(),
-    //     ]);
-
-    //     $item = Item::factory()->create([
-    //     'name' => '【テスト用】購入商品',
-    //     ]);
-
-    //     Purchase::factory()->create([
-    //     'user_id' => $buyer->id,
-    //     'item_id' => $item->id,
-    //     'price' => $item->price,
-    //     ]);
-
-    //     $this->actingAs($buyer);
-
-    //     $response = $this->get('/mypage');
-
-    //     $response->assertStatus(200);
-    //     $response->assertSee('【テスト用】購入商品');
-    // }
-
     /** @test */
-
     public function 小計画面で変更が反映される()
     {
         $this->withoutExceptionHandling();

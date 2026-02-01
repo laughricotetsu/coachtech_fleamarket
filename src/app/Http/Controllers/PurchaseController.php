@@ -30,30 +30,10 @@ class PurchaseController extends Controller
                 ->with('error', 'この商品は売り切れました');
         }
 
-        // $address = session('purchase_address');
-
-        // if (!$address) {
-        // $address = [
-        //     'postal_code' => auth()->user()->postal_code,
-        //     'shipping_address' => auth()->user()->address,
-        //     'building' => auth()->user()->building,
-        // ];
-        // }
-
-        // Purchase::create([
-        //     'user_id' => auth()->id(),
-        //     'item_id' => $item->id,
-        //     'price' => $item->price,
-        //     'payment_method' => $validated['payment_method'],
-        //     'postal_code' => $address['postal_code'],
-        //     'shipping_address' => $address['shipping_address'],
-        //     'building' => $address['building'],
-        // ]);
-
         if (app()->environment('testing')) {
             return redirect()->route('purchase.success', $item);
         }
-        
+
         if ($validated['payment_method']!="クレジットカード"){
             return redirect('/purchase/success/' . $item->id);
         }
@@ -76,14 +56,10 @@ class PurchaseController extends Controller
             'cancel_url'  => url('/purchase/cancel/' . $item->id),
         ]);
         return redirect($session->url);
-        }
+    }
 
     public function success(Item $item)
     {
-        // $purchase = Purchase::where('item_id', $item->id)
-        //     ->where('user_id', auth()->id())
-        //     ->latest()
-        //     ->firstOrFail();
         $validated = session('validated_purchase');
 
         $address = session('purchase_address');

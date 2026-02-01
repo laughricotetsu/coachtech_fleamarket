@@ -18,9 +18,19 @@ Route::get('/item/{item_id}', [ItemController::class, 'show'])->name('items.show
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
+    Route::get('/home', function () {
+    $user = auth()->user();
 
+    // 住所が未登録の場合
+    if (empty($user->address)) {
+        return redirect()->route('profile.edit');
+    }
 
-        // 商品購入
+    // 登録済みなら商品一覧へ
+    return redirect()->route('items.index');
+    });
+
+    // 商品購入
     Route::get('/purchase/{item}', [ItemController::class, 'purchase'])->name('purchase');
 
     Route::post('/item/{item}/purchase', [PurchaseController::class, 'store'])

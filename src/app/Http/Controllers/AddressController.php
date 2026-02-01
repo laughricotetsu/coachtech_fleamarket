@@ -17,7 +17,7 @@ class AddressController extends Controller
 
 public function update(AddressRequest $request, Item $item)
 {
-    $validated = $request->validated(); 
+    $validated = $request->validated();
 
     session([
         'purchase_address' => [
