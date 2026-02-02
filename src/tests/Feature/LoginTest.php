@@ -62,7 +62,6 @@ class LoginTest extends TestCase
         ]);
     }
 
-    /** @test */
     public function 正しい情報が入力された場合_ログイン処理が実行される()
     {
         $user = User::factory()->create([

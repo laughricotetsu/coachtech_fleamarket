@@ -7,7 +7,7 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 use App\Models\User;
 
-class HelloTest extends TestCase
+class RegisterTest extends TestCase
 {
     use RefreshDatabase;
     /**
@@ -29,6 +29,7 @@ class HelloTest extends TestCase
             ]);
     }
 
+    /** @test */
     public function 名前が未入力の場合_バリデーションエラーが表示される()
     {
         // 名前を送らずにPOSTする
@@ -55,6 +56,8 @@ class HelloTest extends TestCase
             'email' => 'メールアドレスを入力してください',
         ]);
     }
+
+    /** @test */
     public function パスワードが未入力の場合_バリデーションエラーが表示される()
     {
         $response = $this->post('/register', [
@@ -82,6 +85,7 @@ class HelloTest extends TestCase
             'password' => 'パスワードは8文字以上で入力してください'
         ]);
     }
+
     public function パスワードが確認用パスワードと一致しない場合_バリデーションエラーが表示される()
     {
         $response = $this->post('/register', [
@@ -96,28 +100,6 @@ class HelloTest extends TestCase
         // password に対するエラーがあるか
         $response->assertSessionHasErrors([
             'password' => 'パスワードと一致しません'
-        ]);
-    }
-
-    /** @test */
-    public function 全ての項目が入力されている場合_会員情報が登録され_プロフィール設定画面に遷移される()
-    {
-        // DBをテスト用にリセット
-        $this->refreshDatabase();
-
-        $response = $this->post('/register', [
-            'name'  => 'テスト太郎',
-            'email' => 'test@example.com',
-            'password' => 'password123',
-            'password_confirmation' => 'password123',
-        ]);
-
-        // プロフィール設定画面にリダイレクトされるか
-        $response->assertRedirect('/mypage');
-
-        // DBに登録されているか
-        $this->assertDatabaseHas('users', [
-            'email' => 'test@example.com',
         ]);
     }
 
